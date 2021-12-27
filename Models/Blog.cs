@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TheBlogProject.Models
 {
@@ -18,13 +21,25 @@ namespace TheBlogProject.Models
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Created date")]
         public DateTime Created { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Updated date")]
         public DateTime? Updated { get; set; }
 
+        [Display(Name ="Blog image")]
         public byte[] ImageData { get; set; }
+        [Display(Name="Image type")]
         public string ContentType { get; set; }
         
+        [NotMapped]
         public IFormFile Image { get; set; }
+
+        //Navigation props
+
+        public virtual IdentityUser Author { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }  = new HashSet<Post>();    
 
     }
 }
