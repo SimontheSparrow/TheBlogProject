@@ -35,6 +35,7 @@ namespace TheBlogProject.Controllers
             }
 
             var post = await _context.Posts
+                .Include(p => p.Blog)
                 .Include(p => p.BlogUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
@@ -48,7 +49,9 @@ namespace TheBlogProject.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");
             ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id");
+
             return View();
         }
 
@@ -57,15 +60,17 @@ namespace TheBlogProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BlogId,BlogUserId,Title,Abstract,Content,Created,Updated,ReadyStatus,Slug,ImageData,ContentType")] Post post)
+        public async Task<IActionResult> Create([Bind("BlogId,Title,Abstract,Content,ReadyStatus,Image")] Post post)
         {
             if (ModelState.IsValid)
             {
+                post.Created= DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", post.BlogUserId);
+            
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Title", post.BlogId);
             return View(post);
         }
 
@@ -82,7 +87,8 @@ namespace TheBlogProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", post.BlogUserId);
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name", post.BlogId);
+
             return View(post);
         }
 
@@ -91,7 +97,7 @@ namespace TheBlogProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogId,BlogUserId,Title,Abstract,Content,Created,Updated,ReadyStatus,Slug,ImageData,ContentType")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogId,Title,Abstract,Content,ReadyStatus,Image")] Post post)
         {
             if (id != post.Id)
             {
@@ -102,6 +108,7 @@ namespace TheBlogProject.Controllers
             {
                 try
                 {
+                    post.Updated= DateTime.Now;
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
@@ -131,6 +138,7 @@ namespace TheBlogProject.Controllers
             }
 
             var post = await _context.Posts
+                .Include(p => p.Blog)
                 .Include(p => p.BlogUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
