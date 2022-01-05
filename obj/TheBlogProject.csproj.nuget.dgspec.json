@@ -46,6 +46,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.13, )"
@@ -76,6 +80,10 @@
               "target": "Package",
               "version": "[5.0.2, )"
             },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Npgsql": {
               "target": "Package",
               "version": "[5.0.3, )"
@@ -83,6 +91,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "System.IO": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             }
           },
           "imports": [

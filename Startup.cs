@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheBlogProject.Data;
 using TheBlogProject.Models;
+using TheBlogProject.Services;
+using TheBlogProject.ViewModels;
 
 namespace TheBlogProject
 {
@@ -28,9 +30,6 @@ namespace TheBlogProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));*/
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
@@ -38,8 +37,6 @@ namespace TheBlogProject
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-         //   services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-               // .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddIdentity<BlogUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
@@ -47,6 +44,19 @@ namespace TheBlogProject
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //Register DataService
+            services.AddScoped<DataService>();
+
+            //Register MailSettings
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddScoped<IBlogEmailSender, EmailService>();
+
+            //Register Image service
+            services.AddScoped<IImageService, BasicImageService>();
+
+            //Register slug
+            services.AddScoped<ISlugService, BasicSlugService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

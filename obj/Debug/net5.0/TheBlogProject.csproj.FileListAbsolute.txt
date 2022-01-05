@@ -493,3 +493,7 @@ C:\Users\48574\Documents\Code\TheBlogProject\obj\Debug\net5.0\Razor\Areas\Identi
 C:\Users\48574\Documents\Code\TheBlogProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\48574\Documents\Code\TheBlogProject\obj\Debug\net5.0\Razor\Views\Home\About.cshtml.g.cs
 C:\Users\48574\Documents\Code\TheBlogProject\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
+C:\Users\48574\Documents\Code\TheBlogProject\obj\Debug\net5.0\Razor\Views\Home\Misiaczek.cshtml.g.cs
+C:\Users\48574\Documents\Code\TheBlogProject\bin\Debug\net5.0\MailKit.dll
+C:\Users\48574\Documents\Code\TheBlogProject\bin\Debug\net5.0\MimeKit.dll
+C:\Users\48574\Documents\Code\TheBlogProject\bin\Debug\net5.0\BouncyCastle.Crypto.dll
