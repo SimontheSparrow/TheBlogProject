@@ -12,7 +12,7 @@ namespace TheBlogProject.Models
     {
         public int Id { get; set; }
         [Display(Name = "Blog name")]
-        public string BlogId { get; set; }
+        public int BlogId { get; set; }
         public string BlogUserId { get; set; }
 
         [Required]

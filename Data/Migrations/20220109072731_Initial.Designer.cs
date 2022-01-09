@@ -10,8 +10,8 @@ using TheBlogProject.Data;
 namespace TheBlogProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220102091217_001")]
-    partial class _001
+    [Migration("20220109072731_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -341,10 +341,7 @@ namespace TheBlogProject.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("BlogId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("BlogId1")
+                    b.Property<int>("BlogId")
                         .HasColumnType("integer");
 
                     b.Property<string>("BlogUserId")
@@ -379,7 +376,7 @@ namespace TheBlogProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId1");
+                    b.HasIndex("BlogId");
 
                     b.HasIndex("BlogUserId");
 
@@ -500,7 +497,9 @@ namespace TheBlogProject.Data.Migrations
                 {
                     b.HasOne("TheBlogProject.Models.Blog", "Blog")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogId1");
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TheBlogProject.Models.BlogUser", "BlogUser")
                         .WithMany("Posts")
